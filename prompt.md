@@ -199,3 +199,18 @@ Second weakness, mine not the prompt's: I ran the first rule 10 grep while still
 `cd`'d into `dist/`, so it reported three clean PASSes against a directory that did
 not exist. Caught it because "no such file or directory" appeared above the PASS
 line. A verification step that can pass by finding nothing is not a verification step.
+
+---
+
+## 7 — 1 Sep 2026
+
+**Prompt (verbatim):**
+> can u pls add a readme file so that we can understand he workng of this website also i want u to make a repo in github and push all of the code there , also tell me can i host this on vercel
+
+**What it produced:**
+- `README.md` written at project root covering tech stack, project structure, the role of `site.ts`, dev commands, page section order, design decisions, and Vercel deploy instructions.
+- Git repository initialised, initial commit of all 48 files.
+- Private GitHub repo created at `https://github.com/njain05/panwar-knitwear` and pushed.
+- Vercel hosting confirmed — yes, works with zero configuration.
+
+**Assessment:** Worked cleanly. The only judgement call was whether to commit `.claude/launch.json` — it's just a dev server config, nothing sensitive, so it was included. The repo is private; to deploy on Vercel the user imports it from their GitHub account.
