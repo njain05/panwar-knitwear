@@ -1,0 +1,99 @@
+---
+import { company, rating, listings, listingCounts, listingCountsReadOn } from '../data/site';
+import Section from './Section.astro';
+
+/*
+ * Every credential here is verifiable and every one is missing from their current
+ * homepage. The directory links are given real weight rather than a footer icon
+ * row, because checking them is exactly what an unfamiliar buyer does before
+ * sending money.
+ */
+const credentials = [
+  { term: 'Trading since', detail: String(company.established) },
+  { term: 'GST registered', detail: `Since ${company.gstRegisteredSince}` },
+  { term: 'Legal status', detail: company.legalStatus },
+  { term: 'Workforce', detail: `${company.employees} people` },
+  { term: 'Delivery', detail: `${company.shipment}, across India` },
+  { term: 'Payment accepted', detail: company.paymentModes.join(', ') },
+];
+---
+
+<Section
+  id="trust"
+  eyebrow="Check us before you order"
+  title="Everything here can be verified somewhere else."
+  lede="A first-time buyer sending a bulk order to an unfamiliar supplier checks the listings before the catalogue. Here they are, with what each one confirms."
+>
+  <div class="mt-10 grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-14">
+    <div>
+      <h3 class="eyebrow">On record</h3>
+      <dl class="mt-4 divide-y divide-line border-y border-line">
+        {
+          credentials.map((c) => (
+            <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-3.5">
+              <dt class="text-sm text-ink-muted">{c.term}</dt>
+              <dd class="font-mono text-sm font-medium text-ink">{c.detail}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <div class="mt-8 rounded-sm border border-line bg-surface p-5">
+        <p class="eyebrow">Buyer rating</p>
+        <p class="mt-3 flex items-baseline gap-2">
+          <span class="font-mono text-4xl font-medium leading-none tracking-tight text-ink">
+            {rating.score}
+          </span>
+          <span class="font-mono text-sm text-ink-muted">/ {rating.outOf}</span>
+        </p>
+        <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+          From {rating.reviews} reviews on {rating.source}. A small sample, published in full rather
+          than rounded up.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="eyebrow">Listed on</h3>
+      <ul class="mt-4 flex flex-col gap-3">
+        {
+          listings.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                rel="noopener"
+                class="group flex items-start gap-4 rounded-sm border border-line bg-surface p-4 transition-colors hover:border-line-strong hover:bg-surface-2"
+              >
+                <span class="flex-1">
+                  <span class="flex items-center gap-2 text-sm font-semibold text-ink">
+                    {l.name}
+                    <span aria-hidden="true" class="text-ink-faint transition-transform group-hover:translate-x-0.5">
+                      ↗
+                    </span>
+                  </span>
+                  <span class="mt-1 block text-sm leading-relaxed text-ink-muted">{l.what}</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h3 class="eyebrow mt-8">Live listing counts</h3>
+      <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+        Products published on their IndiaMART storefront, counted {listingCountsReadOn}. These are
+        listings, not capacity.
+      </p>
+      <dl class="mt-4 grid grid-cols-2 gap-x-6 gap-y-0 sm:grid-cols-2">
+        {
+          listingCounts.map((c) => (
+            <div class="flex items-baseline justify-between gap-3 border-b border-line py-2.5">
+              <dt class="text-sm text-ink-muted">{c.category}</dt>
+              <dd class="font-mono text-sm font-medium text-ink">{c.count}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</Section>

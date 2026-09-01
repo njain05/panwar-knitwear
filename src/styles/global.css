@@ -1,0 +1,133 @@
+@import 'tailwindcss';
+
+/* Self-hosted. No external font request, no render-blocking third party. */
+@import '@fontsource-variable/archivo';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+/*
+ * DESIGN NOTES — defended in CLAUDE.md.
+ *
+ * Colour: the garment photography carries every bright colour on the page, so the
+ * interface holds only warm paper, near-black ink and a single rust accent. Rust
+ * because it sits beside the navy, olive and grey of the actual garments without
+ * competing, and because a generic corporate blue is what a template would pick.
+ * WhatsApp green appears once, on the WhatsApp control, where it is functional
+ * recognition rather than decoration.
+ *
+ * Type: Archivo — a grotesque with straight-sided terminals; it reads industrial
+ * without turning into a tech-startup default. IBM Plex Mono for every figure,
+ * eyebrow and spec label, so numbers read as measured rather than as marketing.
+ * That mono/grotesque split is the whole typographic idea: claims in prose,
+ * evidence in monospace.
+ *
+ * Every colour is defined once, here. No component declares a colour of its own.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  --pk-paper: oklch(98.4% 0.004 85);
+  --pk-surface: oklch(96.2% 0.005 85);
+  --pk-surface-2: oklch(93.2% 0.006 85);
+  --pk-ink: oklch(21% 0.012 265);
+  --pk-ink-muted: oklch(45% 0.011 265);
+  --pk-ink-faint: oklch(49% 0.009 265);
+  --pk-line: oklch(88% 0.006 85);
+  --pk-line-strong: oklch(78% 0.008 85);
+  --pk-accent: oklch(52% 0.145 45);
+  --pk-accent-ink: oklch(99% 0.002 85);
+  --pk-accent-soft: oklch(94% 0.03 55);
+  --pk-whatsapp: oklch(49% 0.13 150);
+  --pk-whatsapp-ink: oklch(99% 0.002 85);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --pk-paper: oklch(16.5% 0.008 265);
+    --pk-surface: oklch(20.5% 0.009 265);
+    --pk-surface-2: oklch(25.5% 0.011 265);
+    --pk-ink: oklch(95.5% 0.004 85);
+    --pk-ink-muted: oklch(74% 0.008 265);
+    --pk-ink-faint: oklch(60% 0.009 265);
+    --pk-line: oklch(30% 0.011 265);
+    --pk-line-strong: oklch(40% 0.012 265);
+    --pk-accent: oklch(72% 0.135 55);
+    --pk-accent-ink: oklch(18% 0.02 45);
+    --pk-accent-soft: oklch(30% 0.05 50);
+    --pk-whatsapp: oklch(72% 0.15 150);
+    --pk-whatsapp-ink: oklch(18% 0.03 150);
+  }
+}
+
+@theme inline {
+  --color-paper: var(--pk-paper);
+  --color-surface: var(--pk-surface);
+  --color-surface-2: var(--pk-surface-2);
+  --color-ink: var(--pk-ink);
+  --color-ink-muted: var(--pk-ink-muted);
+  --color-ink-faint: var(--pk-ink-faint);
+  --color-line: var(--pk-line);
+  --color-line-strong: var(--pk-line-strong);
+  --color-accent: var(--pk-accent);
+  --color-accent-ink: var(--pk-accent-ink);
+  --color-accent-soft: var(--pk-accent-soft);
+  --color-whatsapp: var(--pk-whatsapp);
+  --color-whatsapp-ink: var(--pk-whatsapp-ink);
+
+  --font-sans: 'Archivo Variable', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
+    Consolas, 'Liberation Mono', monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Sticky contact bar sits over the foot of the viewport on narrow screens. */
+    scroll-padding-top: 4.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Nothing on this page may push the viewport sideways. */
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+/* Every tappable control clears 44px, per rule 12. */
+@utility tap {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+import { meta, company } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = meta.title, description = meta.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://panwarknitwear.com');
+---
+
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.href} />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:site_name" content={company.name} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {/* No <meta name="theme-color">: it takes a literal colour, and rule 11 keeps
+        every colour defined once in global.css. The browser chrome falls back to
+        the page background, which is correct in both themes anyway. */}
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="tap sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-accent focus:px-4 focus:text-sm focus:font-semibold focus:text-accent-ink"
+      >Skip to content</a
+    >
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,56 @@
+---
+import { fabrics } from '../data/site';
+import Section from './Section.astro';
+
+/*
+ * Rendered as a table, not a paragraph. A buyer specifying an order needs to name
+ * a fabric; the second column exists because the same cloth is listed under a
+ * different trade name on their IndiaMART storefront, and a buyer who searched
+ * there should still recognise it here.
+ */
+---
+
+<Section
+  id="fabrics"
+  eyebrow="Fabrics"
+  title="Eight knitted fabrics, all in house."
+  lede="Name the fabric on your enquiry and it goes straight to the floor. Where a fabric is listed under another trade name elsewhere, both names are given."
+  tone="surface"
+>
+  <div class="mt-10 overflow-hidden rounded-sm border border-line bg-paper">
+    <table class="w-full border-collapse text-left">
+      <caption class="sr-only">
+        Knitted fabrics offered, their alternative trade names and typical garments
+      </caption>
+      <thead>
+        <tr class="border-b border-line bg-surface-2">
+          <th scope="col" class="eyebrow px-4 py-3 sm:px-5">Fabric</th>
+          <th scope="col" class="eyebrow hidden px-4 py-3 sm:table-cell sm:px-5">Also listed as</th>
+          <th scope="col" class="eyebrow px-4 py-3 text-right sm:px-5 sm:text-left">Typically</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          fabrics.map((f) => (
+            <tr class="border-b border-line last:border-b-0">
+              <th scope="row" class="px-4 py-4 align-top text-sm font-semibold text-ink sm:px-5">
+                {f.name}
+                {f.alsoListedAs && f.alsoListedAs !== f.name && (
+                  <span class="mt-1 block font-mono text-[0.6875rem] font-normal text-ink-faint sm:hidden">
+                    {f.alsoListedAs}
+                  </span>
+                )}
+              </th>
+              <td class="hidden px-4 py-4 align-top font-mono text-xs text-ink-faint sm:table-cell sm:px-5">
+                {f.alsoListedAs && f.alsoListedAs !== f.name ? f.alsoListedAs : '—'}
+              </td>
+              <td class="px-4 py-4 text-right align-top text-sm text-ink-muted sm:px-5 sm:text-left">
+                {f.use}
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</Section>

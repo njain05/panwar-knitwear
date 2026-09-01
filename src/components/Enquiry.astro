@@ -1,0 +1,172 @@
+---
+import { phones, telHref, whatsappHref, fabrics, garmentTypes, company } from '../data/site';
+import Section from './Section.astro';
+
+/*
+ * The only conversion point, and the only place JavaScript runs.
+ *
+ * The old homepage posted a form to `send_mail.php` and printed
+ * `email@example.com` as the contact address — a form that looked like it sent and
+ * did not. Rule 13 exists because of it.
+ *
+ * So: the three real numbers come first and work with no scripting at all. The
+ * composer below them does not send anything — it assembles a WhatsApp message and
+ * hands it to WhatsApp, where the buyer sees the text before it goes. If
+ * JavaScript is off, the <noscript> rule removes the composer entirely, so there
+ * is never a form on this page that appears to send and doesn't.
+ */
+
+const garmentOptions = [
+  ...garmentTypes.zonixa.map((g) => `Top wear — ${g}`),
+  ...garmentTypes.msp.map((g) => `Bottom wear — ${g}`),
+  ...garmentTypes.boys.map((g) => `Boys' wear — ${g}`),
+];
+---
+
+<Section
+  id="enquiry"
+  eyebrow="Enquire"
+  title="Send the garment, the fabric and the quantity."
+  lede="Enquiries reach us on WhatsApp or by phone. There is no order form and no online checkout — bulk pricing depends on the specification, so we quote against yours."
+>
+  <div class="mt-10 grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
+    <div>
+      <h3 class="eyebrow">Talk to us directly</h3>
+      <ul class="mt-4 flex flex-col gap-3">
+        {
+          phones.map((p) => (
+            <li class="rounded-sm border border-line bg-surface p-4">
+              <p class="font-mono text-base font-medium tracking-tight text-ink">{p.display}</p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <a
+                  href={telHref(p.e164)}
+                  class="tap flex-1 rounded-sm border border-line-strong bg-paper px-4 text-sm font-semibold text-ink transition-colors hover:bg-surface-2 sm:flex-none"
+                >
+                  Call
+                </a>
+                <a
+                  href={whatsappHref(p.e164)}
+                  rel="noopener"
+                  class="tap flex-1 rounded-sm bg-whatsapp px-4 text-sm font-semibold text-whatsapp-ink transition-opacity hover:opacity-90 sm:flex-none"
+                >
+                  WhatsApp
+                </a>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="mt-5 text-sm leading-relaxed text-ink-muted">
+        {company.city}, {company.state}. {company.shipmentReach}, shipped
+        {company.shipment.toLowerCase()}.
+      </p>
+    </div>
+
+    {/* If scripting is unavailable this whole block is removed, not left inert. */}
+    <noscript>
+      <style>
+        #enquiry-composer {
+          display: none !important;
+        }
+      </style>
+    </noscript>
+
+    <div id="enquiry-composer">
+      <h3 class="eyebrow">Or draft the message first</h3>
+      <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+        This fills in a WhatsApp message and opens it. Nothing is sent until you press send in
+        WhatsApp.
+      </p>
+
+      <form id="enquiry-form" class="mt-5 flex flex-col gap-4" novalidate>
+        <div class="flex flex-col gap-1.5">
+          <label for="eq-garment" class="text-sm font-medium text-ink">Garment</label>
+          <select
+            id="eq-garment"
+            name="garment"
+            class="tap w-full rounded-sm border border-line-strong bg-paper px-3 text-sm text-ink"
+          >
+            <option value="">Select a garment</option>
+            {garmentOptions.map((g) => <option value={g}>{g}</option>)}
+          </select>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="flex flex-col gap-1.5">
+            <label for="eq-fabric" class="text-sm font-medium text-ink">Fabric</label>
+            <select
+              id="eq-fabric"
+              name="fabric"
+              class="tap w-full rounded-sm border border-line-strong bg-paper px-3 text-sm text-ink"
+            >
+              <option value="">No preference</option>
+              {fabrics.map((f) => <option value={f.name}>{f.name}</option>)}
+            </select>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label for="eq-qty" class="text-sm font-medium text-ink">Quantity (pieces)</label>
+            <input
+              id="eq-qty"
+              name="quantity"
+              type="text"
+              inputmode="numeric"
+              autocomplete="off"
+              placeholder="e.g. 500"
+              class="tap w-full rounded-sm border border-line-strong bg-paper px-3 text-sm text-ink placeholder:text-ink-faint"
+            />
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label for="eq-notes" class="text-sm font-medium text-ink">
+            Anything else <span class="font-normal text-ink-faint">(optional)</span>
+          </label>
+          <textarea
+            id="eq-notes"
+            name="notes"
+            rows="3"
+            placeholder="Colours, sizes, printing or labelling, delivery city"
+            class="w-full rounded-sm border border-line-strong bg-paper px-3 py-2.5 text-sm leading-relaxed text-ink placeholder:text-ink-faint"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="tap w-full gap-2 rounded-sm bg-whatsapp px-6 text-base font-semibold text-whatsapp-ink transition-opacity hover:opacity-90"
+        >
+          Open WhatsApp with this enquiry
+        </button>
+
+        <p class="font-mono text-xs leading-relaxed text-ink-faint">
+          Opens a chat with {phones[0]!.display}. You send it.
+        </p>
+      </form>
+    </div>
+  </div>
+</Section>
+
+<script is:inline define:vars={{ waBase: `https://wa.me/${phones[0]!.e164}`, companyName: company.name }}>
+  // The site's only client-side script. It composes text and opens WhatsApp.
+  // It never transmits anything itself.
+  document.getElementById('enquiry-form')?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const value = (name) => (form.elements[name]?.value ?? '').trim();
+
+    const lines = [`Hello ${companyName} — bulk enquiry.`];
+    const garment = value('garment');
+    const fabric = value('fabric');
+    const quantity = value('quantity');
+    const notes = value('notes');
+
+    if (garment) lines.push(`Garment: ${garment}`);
+    if (fabric) lines.push(`Fabric: ${fabric}`);
+    if (quantity) lines.push(`Quantity: ${quantity} pieces`);
+    if (notes) lines.push(`Notes: ${notes}`);
+    if (lines.length === 1) lines.push('I would like to discuss a bulk order.');
+
+    window.open(`${waBase}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
+  });
+</script>

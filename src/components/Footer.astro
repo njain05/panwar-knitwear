@@ -1,0 +1,99 @@
+---
+import { company, brands, socials, listings, phones, telHref, meta } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line bg-surface">
+  <div class="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <p class="text-base font-semibold tracking-tight text-ink">{company.name}</p>
+        <p class="mt-2 text-sm leading-relaxed text-ink-muted">
+          {company.natureOfBusiness} of knitted top wear and bottom wear.<br />
+          {company.city}, {company.state}, {company.country}.
+        </p>
+      </div>
+
+      <div>
+        <p class="eyebrow">Brands</p>
+        <ul class="mt-1 flex flex-col">
+          {
+            Object.values(brands)
+              .filter((b) => b.url)
+              .map((b) => (
+              <li>
+                <a
+                  href={b.url}
+                  rel="noopener"
+                  class="flex min-h-11 items-center text-sm text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+                >
+                  {b.name} — {b.scope} ↗
+                </a>
+              </li>
+            ))
+          }
+          {
+            socials.map((s) => (
+              <li>
+                <a
+                  href={s.href}
+                  rel="noopener"
+                  class="flex min-h-11 items-center text-sm text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+                >
+                  {s.name} {s.handle} ↗
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <p class="eyebrow">Listed on</p>
+        <ul class="mt-1 flex flex-col">
+          {
+            listings.map((l) => (
+              <li>
+                <a
+                  href={l.href}
+                  rel="noopener"
+                  class="flex min-h-11 items-center text-sm text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+                >
+                  {l.name} ↗
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <p class="eyebrow">Enquiries</p>
+        <ul class="mt-1 flex flex-col">
+          {
+            phones.map((p) => (
+              <li>
+                <a
+                  href={telHref(p.e164)}
+                  class="flex min-h-11 items-center font-mono text-sm text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+                >
+                  {p.display}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-12 flex flex-col gap-2 border-t border-line pt-6 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} {company.name}. All rights reserved.</p>
+      <p class="font-mono">Company details verified {meta.sourcesReadOn}.</p>
+    </div>
+  </div>
+
+  {/* Clears the sticky Call · WhatsApp bar on narrow viewports. */}
+  <div class="h-16 lg:hidden" aria-hidden="true"></div>
+</footer>

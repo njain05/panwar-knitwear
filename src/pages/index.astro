@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import CapabilityStrip from '../components/CapabilityStrip.astro';
+import BrandSection from '../components/BrandSection.astro';
+import Fabrics from '../components/Fabrics.astro';
+import Trust from '../components/Trust.astro';
+import About from '../components/About.astro';
+import Enquiry from '../components/Enquiry.astro';
+import Footer from '../components/Footer.astro';
+import StickyContactBar from '../components/StickyContactBar.astro';
+
+import { brands, garmentTypes, zonixaProducts, mspProducts, boysProducts } from '../data/site';
+---
+
+<Base>
+  <Header />
+  <main id="main">
+    <Hero />
+    <CapabilityStrip />
+
+    <BrandSection
+      id="zonixa"
+      eyebrow={`${brands.zonixa.name} — ${brands.zonixa.scope}`}
+      title="T-shirts, sweatshirts and hoodies."
+      lede={`Our own top wear label — knitted, labelled and packed in house. Every photograph below is ${brands.zonixa.name} production, shown in the colourways it is made in.`}
+      garments={garmentTypes.zonixa}
+      products={zonixaProducts}
+      brandUrl={brands.zonixa.url}
+      brandName={brands.zonixa.name}
+    />
+
+    <BrandSection
+      id="msp-sports"
+      eyebrow={`${brands.msp.name} — ${brands.msp.scope}`}
+      title="Lowers, track pants, nikkar and shorts."
+      lede={`${brands.msp.relationshipNote}, and the reason a single order can cover a full outfit rather than half of one.`}
+      garments={garmentTypes.msp}
+      products={mspProducts}
+      brandUrl={brands.msp.url}
+      brandName={brands.msp.name}
+      tone="surface"
+    />
+
+    <BrandSection
+      id="boys-wear"
+      eyebrow="Boys' wear"
+      title="Boys' lowers and joggers."
+      lede="Boys' lowers, joggers and track pants, carried as their own category alongside a combined men's and boys' range. Add them to a men's order rather than sourcing them from somewhere else."
+      garments={garmentTypes.boys}
+      products={boysProducts}
+    />
+
+    <Fabrics />
+    <Trust />
+    <About />
+    <Enquiry />
+  </main>
+  <Footer />
+  <StickyContactBar />
+</Base>

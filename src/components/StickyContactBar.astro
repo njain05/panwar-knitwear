@@ -1,0 +1,30 @@
+---
+import { primaryPhone, telHref, whatsappHref } from '../data/site';
+
+/*
+ * Narrow viewports only. Buyers arrive here from IndiaMART and WhatsApp on a
+ * phone, so Call and WhatsApp stay reachable on every screen without scrolling
+ * back. Pure CSS — no JavaScript involved.
+ */
+---
+
+<div
+  class="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/95 backdrop-blur-sm lg:hidden"
+  style="padding-bottom: env(safe-area-inset-bottom);"
+>
+  <div class="mx-auto flex w-full max-w-6xl gap-2 px-4 py-2.5">
+    <a
+      href={telHref(primaryPhone.e164)}
+      class="tap flex-1 gap-2 rounded-sm border border-line-strong bg-paper text-sm font-semibold text-ink"
+    >
+      Call
+    </a>
+    <a
+      href={whatsappHref(primaryPhone.e164)}
+      rel="noopener"
+      class="tap flex-1 gap-2 rounded-sm bg-whatsapp text-sm font-semibold text-whatsapp-ink"
+    >
+      WhatsApp
+    </a>
+  </div>
+</div>
