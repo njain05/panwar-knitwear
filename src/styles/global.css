@@ -8,18 +8,15 @@
 /*
  * DESIGN NOTES — defended in CLAUDE.md.
  *
- * Colour: the garment photography carries every bright colour on the page, so the
- * interface holds only warm paper, near-black ink and a single rust accent. Rust
- * because it sits beside the navy, olive and grey of the actual garments without
- * competing, and because a generic corporate blue is what a template would pick.
- * WhatsApp green appears once, on the WhatsApp control, where it is functional
- * recognition rather than decoration.
+ * Colour comes from their own logo, not from taste. `transparent-logo.png` is a
+ * violet gradient running #3e0049 → #71028f; those two values are the brand ramp
+ * below and everything else is derived from them. The garments still carry the
+ * bright colour, so violet is used structurally — header, hero, section markers,
+ * primary controls — and never on top of a photograph.
  *
- * Type: Archivo — a grotesque with straight-sided terminals; it reads industrial
- * without turning into a tech-startup default. IBM Plex Mono for every figure,
- * eyebrow and spec label, so numbers read as measured rather than as marketing.
- * That mono/grotesque split is the whole typographic idea: claims in prose,
- * evidence in monospace.
+ * Type: Archivo (grotesque, industrial without being a tech default) for prose;
+ * IBM Plex Mono for every figure, code and spec label. Claims in prose, evidence
+ * in monospace. That split is the typographic idea.
  *
  * Every colour is defined once, here. No component declares a colour of its own.
  */
@@ -27,40 +24,79 @@
 :root {
   color-scheme: light dark;
 
-  --pk-paper: oklch(98.4% 0.004 85);
-  --pk-surface: oklch(96.2% 0.005 85);
-  --pk-surface-2: oklch(93.2% 0.006 85);
-  --pk-ink: oklch(21% 0.012 265);
-  --pk-ink-muted: oklch(45% 0.011 265);
-  --pk-ink-faint: oklch(49% 0.009 265);
-  --pk-line: oklch(88% 0.006 85);
-  --pk-line-strong: oklch(78% 0.008 85);
-  --pk-accent: oklch(52% 0.145 45);
-  --pk-accent-ink: oklch(99% 0.002 85);
-  --pk-accent-soft: oklch(94% 0.03 55);
+  /* Brand ramp — sampled directly from the logo artwork. */
+  --pk-brand-deepest: oklch(22% 0.13 316);
+  --pk-brand-deep: oklch(28% 0.155 315);
+  --pk-brand: oklch(35% 0.185 315);
+  --pk-brand-bright: oklch(44% 0.215 316);
+  --pk-brand-lift: oklch(58% 0.2 318);
+  --pk-brand-ink: oklch(99% 0.004 320);
+  --pk-brand-tint: oklch(96.5% 0.018 318);
+  --pk-brand-tint-line: oklch(89% 0.035 318);
+  /* Stitch stroke for the knit texture. Derived from the brand ink, never raw. */
+  --pk-knit-stroke: color-mix(in oklab, var(--pk-brand-ink) 5.5%, transparent);
+
+  --pk-paper: oklch(98.6% 0.003 320);
+  --pk-surface: oklch(96.4% 0.005 320);
+  --pk-surface-2: oklch(93.4% 0.007 320);
+  --pk-ink: oklch(19% 0.02 315);
+  --pk-ink-muted: oklch(44% 0.016 315);
+  --pk-ink-faint: oklch(49% 0.012 315);
+  --pk-line: oklch(88.5% 0.008 318);
+  --pk-line-strong: oklch(78% 0.012 318);
+
+  --pk-accent: var(--pk-brand-bright);
+  --pk-accent-ink: var(--pk-brand-ink);
+
   --pk-whatsapp: oklch(49% 0.13 150);
   --pk-whatsapp-ink: oklch(99% 0.002 85);
+
+  --pk-shadow: 315 30% 12%;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --pk-paper: oklch(16.5% 0.008 265);
-    --pk-surface: oklch(20.5% 0.009 265);
-    --pk-surface-2: oklch(25.5% 0.011 265);
-    --pk-ink: oklch(95.5% 0.004 85);
-    --pk-ink-muted: oklch(74% 0.008 265);
-    --pk-ink-faint: oklch(60% 0.009 265);
-    --pk-line: oklch(30% 0.011 265);
-    --pk-line-strong: oklch(40% 0.012 265);
-    --pk-accent: oklch(72% 0.135 55);
-    --pk-accent-ink: oklch(18% 0.02 45);
-    --pk-accent-soft: oklch(30% 0.05 50);
+    --pk-brand-deepest: oklch(18% 0.08 316);
+    --pk-brand-deep: oklch(23% 0.11 315);
+    --pk-brand: oklch(32% 0.15 315);
+    --pk-brand-bright: oklch(62% 0.19 318);
+    --pk-brand-lift: oklch(74% 0.15 320);
+    --pk-brand-ink: oklch(99% 0.004 320);
+    --pk-brand-tint: oklch(24% 0.045 318);
+    --pk-brand-tint-line: oklch(34% 0.06 318);
+    /* The dark plate is darker, so the stitch needs a little more presence. */
+    --pk-knit-stroke: color-mix(in oklab, var(--pk-brand-ink) 7%, transparent);
+
+    --pk-paper: oklch(15.5% 0.014 315);
+    --pk-surface: oklch(19.5% 0.017 315);
+    --pk-surface-2: oklch(24.5% 0.02 315);
+    --pk-ink: oklch(96% 0.005 320);
+    --pk-ink-muted: oklch(75% 0.012 318);
+    --pk-ink-faint: oklch(62% 0.014 318);
+    --pk-line: oklch(29% 0.02 318);
+    --pk-line-strong: oklch(40% 0.025 318);
+
+    --pk-accent: var(--pk-brand-bright);
+    --pk-accent-ink: oklch(16% 0.03 315);
+
     --pk-whatsapp: oklch(72% 0.15 150);
     --pk-whatsapp-ink: oklch(18% 0.03 150);
+
+    --pk-shadow: 315 40% 3%;
   }
 }
 
 @theme inline {
+  --color-brand-deepest: var(--pk-brand-deepest);
+  --color-brand-deep: var(--pk-brand-deep);
+  --color-brand: var(--pk-brand);
+  --color-brand-bright: var(--pk-brand-bright);
+  --color-brand-lift: var(--pk-brand-lift);
+  --color-brand-ink: var(--pk-brand-ink);
+  --color-brand-tint: var(--pk-brand-tint);
+  --color-brand-tint-line: var(--pk-brand-tint-line);
+  --color-knit-stroke: var(--pk-knit-stroke);
+
   --color-paper: var(--pk-paper);
   --color-surface: var(--pk-surface);
   --color-surface-2: var(--pk-surface-2);
@@ -71,7 +107,6 @@
   --color-line-strong: var(--pk-line-strong);
   --color-accent: var(--pk-accent);
   --color-accent-ink: var(--pk-accent-ink);
-  --color-accent-soft: var(--pk-accent-soft);
   --color-whatsapp: var(--pk-whatsapp);
   --color-whatsapp-ink: var(--pk-whatsapp-ink);
 
@@ -84,14 +119,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* Sticky contact bar sits over the foot of the viewport on narrow screens. */
-    scroll-padding-top: 4.5rem;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+    scroll-padding-top: 5.5rem;
   }
 
   body {
@@ -102,16 +130,28 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Nothing on this page may push the viewport sideways. */
-  html,
-  body {
-    overflow-x: hidden;
+  /*
+   * Nothing on this page may push the viewport sideways.
+   *
+   * `clip`, not `hidden`, and on the root only. `overflow-x: hidden` on <body>
+   * makes the body a scroll container, which the scroll-driven reveals below then
+   * attach their view() timeline to — a container that never scrolls, so the
+   * animation never advances and the content stays at opacity 0. `clip` prevents
+   * the sideways scroll without creating that container.
+   */
+  html {
+    overflow-x: clip;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-brand-bright);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background: var(--color-brand-bright);
+    color: var(--color-brand-ink);
   }
 }
 
@@ -121,7 +161,6 @@
   line-height: 1;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-ink-muted);
 }
 
 /* Every tappable control clears 44px, per rule 12. */
@@ -130,4 +169,300 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+/*
+ * Flat brand violet. There is deliberately no gradient here.
+ *
+ * The logo supplies two endpoints; the sweep that used to run between them was
+ * invented, and it reached its lightest value on the right — exactly where the
+ * garment cards sit, so the photography met the weakest part of the field. Flat
+ * also lets the logo artwork, which carries its own gradient and border, sit on a
+ * still backdrop in the sticky header instead of on a competing one.
+ */
+@utility brand-plate {
+  background-color: var(--color-brand-deepest);
+}
+
+/*
+ * The hero plate: flat brand violet carrying a faint knitted-stitch lattice.
+ *
+ * Two repeating gradients at opposing 60-degree angles interlock into a chevron
+ * mesh that reads as jersey knit at arm's length and as nothing in particular up
+ * close, which is what a background should do. The texture is the material the
+ * client actually manufactures, and it costs no image weight.
+ */
+@utility knit-plate {
+  background-color: var(--color-brand-deepest);
+  background-image:
+    repeating-linear-gradient(
+      60deg,
+      var(--color-knit-stroke) 0 1px,
+      transparent 1px 7px
+    ),
+    repeating-linear-gradient(
+      -60deg,
+      var(--color-knit-stroke) 0 1px,
+      transparent 1px 7px
+    );
+
+  /* Anyone who has asked for maximum contrast gets a completely flat field. */
+  @media (prefers-contrast: more) {
+    background-image: none;
+  }
+}
+
+/* ------------------------------------------------------------------ motion */
+
+/*
+ * All motion is CSS. There is still no JavaScript on this page except the
+ * WhatsApp composer.
+ *
+ * Scroll-linked reveals are gated behind @supports, so a browser without
+ * scroll-driven animations renders the content plainly at full opacity. No content
+ * on this page is ever hidden behind an animation that may not run.
+ */
+
+/*
+ * The scroll reveal animates transform and a partial fade only — it never starts
+ * from opacity 0.
+ *
+ * An inactive view() timeline does not fall back to a time-based run; it holds the
+ * animation at its start state. A reveal starting at opacity 0 therefore leaves
+ * content permanently invisible the moment the timeline fails to attach, which is
+ * exactly what happened here when `overflow-x: hidden` on <body> made the body a
+ * scroll container. The overflow bug is fixed above, but the reveal is written so
+ * that the worst case is a slightly faded, slightly offset element rather than an
+ * invisible one.
+ */
+@utility rise {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: pk-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 26%;
+    }
+  }
+}
+
+@keyframes pk-rise {
+  from {
+    opacity: 0.45;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* The hero runs on a normal time-based timeline, so a full fade is safe there. */
+@keyframes pk-lift {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero content animates on load rather than on scroll — it is already in view. */
+@utility lift-in {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: pk-lift 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@utility card-hover {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+@layer components {
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -22px hsl(var(--pk-shadow) / 0.55);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-hover:hover {
+      transform: none;
+    }
+  }
+
+  /* Photograph creeps in slightly on card hover. */
+  .card-hover img {
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card-hover:hover img {
+    transform: scale(1.045);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-hover img,
+    .card-hover:hover img {
+      transition: none;
+      transform: none;
+    }
+  }
+
+  /* Controls */
+  .btn {
+    transition:
+      transform 0.18s ease,
+      background-color 0.18s ease,
+      border-color 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn {
+      transition: none;
+    }
+    .btn:active {
+      transform: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/*
+ * Horizontal scroller used for the product rails on narrow screens. Replaces the
+ * old site's jQuery carousel with scroll-snap — same affordance, no library.
+ */
+@utility rail {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1.25rem;
+  padding-inline: 1.25rem;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+@utility rail-item {
+  flex: 0 0 72%;
+  scroll-snap-align: start;
+}
+
+/* ------------------------------------------------- brand navigation cards */
+
+/*
+ * The three range cards are the main navigation on this page, so they get the most
+ * motion: a staggered entrance, a lift on hover, the photograph creeping in, the
+ * veil deepening and the arrow stepping right. All CSS, all reversible, and all
+ * switched off under prefers-reduced-motion.
+ */
+@layer components {
+  .brand-card {
+    transition:
+      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s ease;
+  }
+
+  .brand-card img,
+  .brand-card-veil,
+  .brand-card-arrow {
+    transition:
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.4s ease;
+  }
+
+  .brand-card:hover,
+  .brand-card:focus-visible {
+    transform: translateY(-6px);
+    border-color: var(--color-brand-bright);
+    box-shadow: 0 26px 50px -28px hsl(var(--pk-shadow) / 0.7);
+  }
+
+  .brand-card:hover img,
+  .brand-card:focus-visible img {
+    transform: scale(1.06);
+  }
+
+  .brand-card:hover .brand-card-veil,
+  .brand-card:focus-visible .brand-card-veil {
+    opacity: 0.82;
+  }
+
+  .brand-card:hover .brand-card-arrow,
+  .brand-card:focus-visible .brand-card-arrow {
+    transform: translateX(4px);
+  }
+
+  /*
+   * A click on a range card should visibly land. :target gives the destination a
+   * brief brand-coloured edge with no JavaScript and no scroll listener.
+   */
+  section:target > div > header {
+    animation: pk-landed 1.6s ease-out both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .brand-card,
+    .brand-card img,
+    .brand-card-veil,
+    .brand-card-arrow {
+      transition: none;
+    }
+    .brand-card:hover,
+    .brand-card:focus-visible {
+      transform: none;
+    }
+    .brand-card:hover img,
+    .brand-card:focus-visible img {
+      transform: none;
+    }
+    .brand-card:hover .brand-card-arrow,
+    .brand-card:focus-visible .brand-card-arrow {
+      transform: none;
+    }
+    section:target > div > header {
+      animation: none;
+    }
+  }
+}
+
+@keyframes pk-landed {
+  0% {
+    box-shadow: -1rem 0 0 -0.75rem var(--color-brand-bright);
+  }
+  35% {
+    box-shadow: -1rem 0 0 -0.75rem var(--color-brand-bright);
+  }
+  100% {
+    box-shadow: -1rem 0 0 -0.75rem transparent;
+  }
+}
+
+/* Staggered entrance for the range cards, using the per-card --d delay. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .brand-card {
+      animation: pk-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
 }

@@ -11,8 +11,8 @@ interface Props {
 const { product, priority = false, class: cls = '' } = Astro.props;
 ---
 
-<figure class={`group flex flex-col ${cls}`}>
-  <div class="overflow-hidden rounded-sm border border-line bg-surface-2">
+<figure class={`card-hover group flex flex-col rounded-xl border border-line bg-paper p-2 ${cls}`}>
+  <div class="relative overflow-hidden rounded-lg bg-surface-2">
     <Image
       src={product.image}
       alt={product.alt}
@@ -23,7 +23,7 @@ const { product, priority = false, class: cls = '' } = Astro.props;
       class="aspect-[4/5] w-full object-cover"
     />
   </div>
-  <figcaption class="mt-3 flex flex-col gap-1">
+  <figcaption class="flex flex-col gap-1 px-1.5 pb-1 pt-3">
     <span class="text-sm font-medium leading-snug text-ink">{product.name}</span>
     {
       product.catalogueSheet && (

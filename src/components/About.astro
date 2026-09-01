@@ -4,7 +4,7 @@ import Section from './Section.astro';
 ---
 
 <Section id="about" eyebrow="About" title="Short version." tone="surface">
-  <div class="mt-8 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
+  <div class="rise mt-8 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
     <div class="max-w-xl">
       <p class="text-lg leading-relaxed text-ink-muted">
         {company.name} has manufactured knitwear in {company.city} since {company.established}. It is
@@ -30,15 +30,15 @@ import Section from './Section.astro';
     </div>
 
     <div class="lg:pt-2">
-      <div class="rounded-sm border border-line bg-paper p-5">
-        <h3 class="eyebrow">HSN codes</h3>
+      <div class="rounded-xl border border-line bg-paper p-5 shadow-sm">
+        <h3 class="eyebrow text-brand-bright">HSN codes</h3>
         <p class="mt-3 text-sm leading-relaxed text-ink-muted">
           For your purchase and customs paperwork.
         </p>
         <ul class="mt-4 flex flex-wrap gap-2">
           {
             company.hsnCodes.map((code) => (
-              <li class="rounded-sm border border-line bg-surface-2 px-3 py-1.5 font-mono text-sm text-ink">
+              <li class="rounded-md border border-brand-tint-line bg-brand-tint px-3 py-1.5 font-mono text-sm text-ink">
                 {code}
               </li>
             ))

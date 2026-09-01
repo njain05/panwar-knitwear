@@ -4,17 +4,22 @@ import { primaryPhone, telHref, whatsappHref } from '../data/site';
 interface Props {
   /** `lg` for the hero and enquiry section, `sm` for the sticky bar. */
   size?: 'sm' | 'lg';
+  /** Set when the buttons sit on the violet plate, which needs a light Call button. */
+  onPlate?: boolean;
   class?: string;
 }
-const { size = 'lg', class: cls = '' } = Astro.props;
+const { size = 'lg', onPlate = false, class: cls = '' } = Astro.props;
 const pad = size === 'lg' ? 'px-6 text-base' : 'px-4 text-sm';
+const callSkin = onPlate
+  ? 'border border-white/30 bg-white/10 text-white hover:bg-white/20'
+  : 'border border-line-strong bg-paper text-ink hover:bg-surface-2';
 ---
 
 <div class={`flex flex-wrap gap-3 ${cls}`}>
   <a
     href={whatsappHref(primaryPhone.e164)}
     rel="noopener"
-    class={`tap ${pad} flex-1 gap-2 rounded-sm bg-whatsapp font-semibold text-whatsapp-ink transition-opacity hover:opacity-90 sm:flex-none`}
+    class={`btn tap ${pad} flex-1 gap-2 rounded-md bg-whatsapp font-semibold text-whatsapp-ink shadow-sm hover:brightness-110 sm:flex-none`}
   >
     <svg viewBox="0 0 24 24" aria-hidden="true" class="size-[1.15em] shrink-0 fill-current">
       <path
@@ -25,7 +30,7 @@ const pad = size === 'lg' ? 'px-6 text-base' : 'px-4 text-sm';
   </a>
   <a
     href={telHref(primaryPhone.e164)}
-    class={`tap ${pad} flex-1 gap-2 rounded-sm border border-line-strong bg-paper font-semibold text-ink transition-colors hover:bg-surface-2 sm:flex-none`}
+    class={`btn tap ${pad} ${callSkin} flex-1 gap-2 rounded-md font-semibold sm:flex-none`}
   >
     <svg viewBox="0 0 24 24" aria-hidden="true" class="size-[1.05em] shrink-0 fill-current">
       <path

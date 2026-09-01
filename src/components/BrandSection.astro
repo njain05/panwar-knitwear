@@ -14,7 +14,7 @@ interface Props {
   /** Only set where the brand has its own live site. Never a dead link — rule 9. */
   brandUrl?: string | null;
   brandName?: string;
-  tone?: 'paper' | 'surface';
+  tone?: 'paper' | 'surface' | 'tint';
 }
 
 const { id, eyebrow, title, lede, garments, products, brandUrl, brandName, tone = 'paper' } =
@@ -22,27 +22,27 @@ const { id, eyebrow, title, lede, garments, products, brandUrl, brandName, tone 
 ---
 
 <Section id={id} eyebrow={eyebrow} title={title} lede={lede} tone={tone}>
-  <ul class="mt-7 flex flex-wrap gap-2">
+  <ul class="rise mt-7 flex flex-wrap gap-2">
     {
       garments.map((g) => (
-        <li class="rounded-sm border border-line bg-surface-2 px-3 py-1.5 font-mono text-xs text-ink-muted">
+        <li class="rounded-full border border-brand-tint-line bg-brand-tint px-3.5 py-1.5 font-mono text-xs text-ink-muted">
           {g}
         </li>
       ))
     }
   </ul>
 
-  <div class="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4">
+  <div class="rise mt-10 grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-5 lg:grid-cols-4">
     {products.map((p) => <ProductCard product={p} />)}
   </div>
 
   {
     brandUrl && brandName && (
-      <p class="mt-8">
+      <p class="rise mt-8">
         <a
           href={brandUrl}
           rel="noopener"
-          class="tap gap-2 rounded-sm border border-line-strong px-4 text-sm font-semibold text-ink transition-colors hover:bg-surface-2"
+          class="btn tap gap-2 rounded-md bg-brand-bright px-5 text-sm font-semibold text-brand-ink hover:brightness-110"
         >
           {brandName} brand site
           <span aria-hidden="true">↗</span>

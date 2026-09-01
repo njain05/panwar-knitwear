@@ -64,12 +64,72 @@ disabled the composer is removed from the page rather than left inert.
 - **IndiaMART's image captions are not trustworthy, so I checked every photo by
   eye.** The image filed there as "Mens Cotton T Shirt" is a photograph of a navy
   lower. Every caption on the new page describes what is actually in the frame.
-- **Photos labelled as catalogue sheets are marked as such.** Some of the real MSP
-  Sports imagery is a printed catalogue sheet rather than a clean product shot.
-  Using them is right — they are real — but pretending they are studio photography
-  is not, so they carry a small "catalogue sheet" tag.
+- **Real is necessary but not sufficient.** Earlier passes used every real photo
+  available — catalogue sheets with `ART NO. #3100` printed across them, and on-model
+  shots on stark white that look like marketplace listings. Both are gone. The page
+  now shows only flat-lays: the garment, its colourway range, its hangtags and its
+  branded packaging. That is also the correct choice commercially, because it sells
+  to the person placing the order rather than the person wearing the garment.
+- **Two images on their IndiaMART storefront are AI-generated mockups, not
+  photographs.** One shows two smiling models with luggage in a grey polo; another a
+  tie-dye tee on a mannequin in a rendered room. Both carry a plain typeset "zonixa"
+  rather than the embroidered badge on their real garments. They are not used, for
+  the same reason the old site's Unsplash stock is not used.
 - **Listing counts are labelled as listings, not capacity.** Nineteen t-shirt
   listings is not a production figure and the page does not let it read like one.
+
+## Design and brand
+
+- **Their own logo was not on their new homepage.** It is now, at full size, in the
+  header and the footer. The artwork is a violet banner with its own gradient, so
+  the header is built as that same gradient and the mark sits inside it rather than
+  floating on white as a stray rectangle.
+- **The brand colour was taken from the logo, not invented.** Sampling
+  `transparent-logo.png` gives a violet ramp from `#3e0049` to `#71028f`. That runs
+  the header, hero, capability strip, fabric table and footer. An earlier version of
+  this page used a rust palette chosen from nothing; a colour that cannot be traced
+  to a source is the wrong colour for a supplier's own site.
+- **Half the available product photography was unusable and is not used.** Many
+  IndiaMART images are catalogue sheets with marketing text printed into the picture
+  — `ART NO. #3100`, `LIFE BEYOND limits`, `SIZE :- L, XL, XXL`. Three were dropped
+  outright, two were cropped to remove the printed text, and three clean
+  single-product shots were pulled from the secondary images on each listing to
+  replace them. Every photograph on the page is now either a clean product shot or a
+  flat-lay showing the branded packaging.
+- **The hero is textured, not graded.** The background of the headline area is a
+  faint knitted-stitch lattice over flat brand violet, drawn entirely in CSS. It
+  replaced a diagonal gradient that washed out to its palest value exactly where the
+  garment photographs sit. Using the material the company actually makes as the
+  texture of its own page is the kind of detail that separates a considered site from
+  a template, and it adds nothing to the download.
+- **The page moves, without shipping a framework.** Sections rise as they enter,
+  product cards lift and their photograph creeps in on hover, the hero settles on
+  load, and the product rails snap-scroll on a phone — replacing the old site's
+  jQuery carousel. All of it is CSS; the JavaScript budget is unchanged at one
+  inline script for the WhatsApp composer, and every effect respects
+  `prefers-reduced-motion`.
+
+## Getting to a range in one click
+
+The old homepage opened with two brand names and no way to act on them. The rebuild
+treats "which of your ranges do I need" as the first decision a buyer makes, so
+there are three routes to every range from anywhere on the page: the desktop nav, a
+scrollable pill rail on phones, and a set of range cards directly under the headline
+figures. Each card shows a photograph, the garment types and how many products are
+published in that category — all read from the same data file as the section it
+points at, so they cannot fall out of step. Clicking one flashes a brand-coloured
+edge on the destination so the jump visibly lands.
+
+## Two things carried back from the old site, and one that was not
+
+- **Restored:** the LinkedIn and Quora links from the old "Learn More" block, which
+  the first pass dropped. LinkedIn returns 200. Quora returns 403 to a scripted
+  request, which is its normal bot response rather than evidence the page is gone —
+  it is linked, and flagged in `site.ts` as asserted rather than verified.
+- **Not restored:** the three "About" images. `who-we-are.jpg` and
+  `our-leadership.jpg` are stock photographs of silhouetted businesspeople in an
+  office, and `our-craftsmanship.jpg` is generic tailoring stock. Putting those back
+  would repeat the exact failure this redesign is built to criticise.
 
 ## Build quality
 
@@ -80,8 +140,13 @@ disabled the composer is removed from the page rather than left inert.
   buyer on a phone connection is not downloading 250KB JPEGs. No external requests
   at all, fonts included.
 - Mobile-first, and checked: no horizontal scroll at 375, 768 or 1280px, every tap
-  target at least 44px, sticky Call · WhatsApp bar on narrow screens, and text
-  contrast meeting WCAG AA in both light and dark themes.
+  target at least 44px, sticky Call · WhatsApp bar on narrow screens, and all 16
+  measured text/background pairs meeting WCAG AA in both light and dark themes.
+- One bug found and fixed by measurement rather than by eye: `overflow-x: hidden` on
+  `<body>` turned the body into a scroll container, which broke the scroll-driven
+  reveals and left content sitting in the viewport at `opacity: 0`. The page now
+  uses `overflow-x: clip` on the root, and the reveal starts at 45% opacity instead
+  of 0 so that no content can ever be hidden behind an animation that fails to run.
 
 ## Still missing, and only the client can answer
 

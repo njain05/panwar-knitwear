@@ -7,43 +7,66 @@ import ContactButtons from './ContactButtons.astro';
  * The USP is "tops and bottoms from one supplier", so the hero shows one
  * photograph from each brand rather than a single decorative image. The pairing
  * is the argument.
+ *
+ * The plate is flat brand violet carrying a knitted-stitch texture — no gradient.
+ * A sweep reached its lightest value exactly where the garment cards sit, and the
+ * blend between the logo's two endpoints was the one invented colour decision on
+ * the page. Garment photography sits on top in white frames, which is the one
+ * place the two are allowed to meet — the violet never tints a photograph.
  */
 const topShot = zonixaProducts[0]!;
 const bottomShot = mspProducts[0]!;
 ---
 
-<div class="border-b border-line bg-paper">
-  <div class="mx-auto grid w-full max-w-6xl gap-10 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-14 lg:py-24">
+<div class="knit-plate relative overflow-hidden">
+  <div
+    class="relative mx-auto grid w-full max-w-6xl gap-10 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-14 lg:py-24"
+  >
     <div>
-      <p class="eyebrow">
+      <p class="eyebrow lift-in text-white/70">
         {company.natureOfBusiness} · {company.city}, {company.state} · Est. {company.established}
       </p>
 
-      <h1 class="mt-5 text-balance text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+      <h1
+        class="lift-in mt-5 text-balance text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
+        style="animation-delay:60ms"
+      >
         Knitted top wear and bottom wear, from one supplier.
       </h1>
 
-      <p class="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-ink-muted">
+      <p
+        class="lift-in mt-6 max-w-xl text-pretty text-lg leading-relaxed text-white/80"
+        style="animation-delay:120ms"
+      >
         {company.name} manufactures t-shirts, sweatshirts and hoodies under
-        <strong class="font-semibold text-ink">{brands.zonixa.name}</strong>, and lowers, track pants,
-        nikkar and shorts under <strong class="font-semibold text-ink">{brands.msp.name}</strong>. Both
-        are in-house brands. {fabrics.length} knitted fabrics, one purchase order, one dispatch.
+        <strong class="font-semibold text-white">{brands.zonixa.name}</strong>, and lowers, track
+        pants, nikkar and shorts under
+        <strong class="font-semibold text-white">{brands.msp.name}</strong>. Both are in-house
+        brands. {fabrics.length} knitted fabrics, one purchase order, one dispatch.
       </p>
 
-      <p class="mt-4 max-w-xl text-pretty leading-relaxed text-ink-muted">
+      <p
+        class="lift-in mt-4 max-w-xl text-pretty leading-relaxed text-white/70"
+        style="animation-delay:160ms"
+      >
         Wholesale and bulk supply, shipped by road across India.
       </p>
 
-      <ContactButtons class="mt-8" />
+      <div class="lift-in" style="animation-delay:220ms">
+        <ContactButtons class="mt-8" onPlate />
+      </div>
 
-      <p class="mt-4 font-mono text-xs leading-relaxed text-ink-faint">
+      <p
+        class="lift-in mt-4 font-mono text-xs leading-relaxed text-white/60"
+        style="animation-delay:260ms"
+      >
         Tell us the garment, the fabric and the quantity — we will quote.
       </p>
     </div>
 
     <div class="grid grid-cols-2 gap-3 sm:gap-4">
-      <figure class="flex flex-col">
-        <div class="overflow-hidden rounded-sm border border-line bg-surface-2">
+      <figure class="lift-in flex flex-col" style="animation-delay:200ms">
+        <div class="overflow-hidden rounded-lg bg-white/10 p-1.5 ring-1 ring-white/20">
           <Image
             src={topShot.image}
             alt={topShot.alt}
@@ -51,29 +74,29 @@ const bottomShot = mspProducts[0]!;
             sizes="(min-width: 1024px) 280px, 45vw"
             loading="eager"
             fetchpriority="high"
-            class="aspect-[4/5] w-full object-cover"
+            class="aspect-[4/5] w-full rounded-md object-cover"
           />
         </div>
         <figcaption class="mt-2.5">
-          <span class="eyebrow">{brands.zonixa.name}</span>
-          <span class="mt-1 block text-sm text-ink-muted">{brands.zonixa.scope}</span>
+          <span class="eyebrow text-white/60">{brands.zonixa.name}</span>
+          <span class="mt-1 block text-sm text-white/85">{brands.zonixa.scope}</span>
         </figcaption>
       </figure>
 
-      <figure class="flex flex-col sm:mt-8">
-        <div class="overflow-hidden rounded-sm border border-line bg-surface-2">
+      <figure class="lift-in flex flex-col sm:mt-8" style="animation-delay:280ms">
+        <div class="overflow-hidden rounded-lg bg-white/10 p-1.5 ring-1 ring-white/20">
           <Image
             src={bottomShot.image}
             alt={bottomShot.alt}
             widths={[300, 480, 640]}
             sizes="(min-width: 1024px) 280px, 45vw"
             loading="eager"
-            class="aspect-[4/5] w-full object-cover"
+            class="aspect-[4/5] w-full rounded-md object-cover"
           />
         </div>
         <figcaption class="mt-2.5">
-          <span class="eyebrow">{brands.msp.name}</span>
-          <span class="mt-1 block text-sm text-ink-muted">{brands.msp.scope}</span>
+          <span class="eyebrow text-white/60">{brands.msp.name}</span>
+          <span class="mt-1 block text-sm text-white/85">{brands.msp.scope}</span>
         </figcaption>
       </figure>
     </div>

@@ -1,36 +1,45 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/panwar-knitwear-logo.png';
 import { company, brands, socials, listings, phones, telHref, meta } from '../data/site';
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-line bg-surface">
+<footer class="bg-brand-deepest text-white">
   <div class="mx-auto w-full max-w-6xl px-5 py-14 sm:px-8">
     <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
       <div>
-        <p class="text-base font-semibold tracking-tight text-ink">{company.name}</p>
-        <p class="mt-2 text-sm leading-relaxed text-ink-muted">
+        <Image
+          src={logo}
+          alt={`${company.name} logo`}
+          widths={[200, 400]}
+          sizes="200px"
+          loading="lazy"
+          class="h-10 w-auto"
+        />
+        <p class="mt-4 text-sm leading-relaxed text-white/70">
           {company.natureOfBusiness} of knitted top wear and bottom wear.<br />
           {company.city}, {company.state}, {company.country}.
         </p>
       </div>
 
       <div>
-        <p class="eyebrow">Brands</p>
+        <p class="eyebrow text-white/50">Brands</p>
         <ul class="mt-1 flex flex-col">
           {
             Object.values(brands)
               .filter((b) => b.url)
               .map((b) => (
-              <li>
-                <a
-                  href={b.url}
-                  rel="noopener"
-                  class="flex min-h-11 items-center text-sm text-ink-muted underline-offset-4 hover:text-ink hover:underline"
-                >
-                  {b.name} — {b.scope} ↗
-                </a>
-              </li>
-            ))
+                <li>
+                  <a
+                    href={b.url}
+                    rel="noopener"
+                    class="flex min-h-11 items-center text-sm text-white/75 underline-offset-4 hover:text-white hover:underline"
+                  >
+                    {b.name} — {b.scope} ↗
+                  </a>
+                </li>
+              ))
           }
           {
             socials.map((s) => (
@@ -38,7 +47,7 @@ const year = new Date().getFullYear();
                 <a
                   href={s.href}
                   rel="noopener"
-                  class="flex min-h-11 items-center text-sm text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+                  class="flex min-h-11 items-center text-sm text-white/75 underline-offset-4 hover:text-white hover:underline"
                 >
                   {s.name} {s.handle} ↗
                 </a>
@@ -49,7 +58,7 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <p class="eyebrow">Listed on</p>
+        <p class="eyebrow text-white/50">Listed on</p>
         <ul class="mt-1 flex flex-col">
           {
             listings.map((l) => (
@@ -57,7 +66,7 @@ const year = new Date().getFullYear();
                 <a
                   href={l.href}
                   rel="noopener"
-                  class="flex min-h-11 items-center text-sm text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+                  class="flex min-h-11 items-center text-sm text-white/75 underline-offset-4 hover:text-white hover:underline"
                 >
                   {l.name} ↗
                 </a>
@@ -68,14 +77,14 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <p class="eyebrow">Enquiries</p>
+        <p class="eyebrow text-white/50">Enquiries</p>
         <ul class="mt-1 flex flex-col">
           {
             phones.map((p) => (
               <li>
                 <a
                   href={telHref(p.e164)}
-                  class="flex min-h-11 items-center font-mono text-sm text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+                  class="flex min-h-11 items-center font-mono text-sm text-white/75 underline-offset-4 hover:text-white hover:underline"
                 >
                   {p.display}
                 </a>
@@ -87,7 +96,7 @@ const year = new Date().getFullYear();
     </div>
 
     <div
-      class="mt-12 flex flex-col gap-2 border-t border-line pt-6 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between"
+      class="mt-12 flex flex-col gap-2 border-t border-white/15 pt-6 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between"
     >
       <p>© {year} {company.name}. All rights reserved.</p>
       <p class="font-mono">Company details verified {meta.sourcesReadOn}.</p>

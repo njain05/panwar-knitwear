@@ -182,9 +182,33 @@ export const listings = [
   },
 ] as const;
 
-/** A — their own social and brand links. */
+/**
+ * A — their own social and editorial links, all four carried over from the old
+ * site's "Follow Our Brands" and "Learn More" blocks.
+ *
+ * Verified 1 Sep 2026: Instagram 200, LinkedIn 200. Quora answers 403 to a
+ * scripted request, which is its standard bot response rather than evidence the
+ * page is gone — flagged here because it is asserted, not verified.
+ */
 export const socials = [
-  { name: 'Instagram', handle: '@panwarknitwear', href: 'https://www.instagram.com/panwarknitwear' },
+  {
+    name: 'Instagram',
+    handle: '@panwarknitwear',
+    href: 'https://www.instagram.com/panwarknitwear',
+    verified: true,
+  },
+  {
+    name: 'LinkedIn',
+    handle: 'Company post',
+    href: 'https://www.linkedin.com/posts/a-rohitash-panwar-7b3684114_panwarknitwear-zonixa-mspsports-activity-7218811071321497600-Dvj6',
+    verified: true,
+  },
+  {
+    name: 'Quora',
+    handle: 'Manufacturer answer',
+    href: 'https://www.quora.com/What-are-some-good-manufacturers-of-clothing/answer/A-Rohitash-Panwar-3',
+    verified: false,
+  },
 ] as const;
 
 /* ------------------------------------------------------------------- about */
@@ -240,25 +264,25 @@ import zChestPrintHoodies from '../assets/zonixa/hoodies-chest-print.jpg';
 import zBenCollarTees from '../assets/zonixa/dry-fit-ben-collar-tees.jpg';
 import zZipHoodies from '../assets/zonixa/zip-hoodies.jpg';
 // ZONIXA — published on their IndiaMART storefront (B).
-import zMattyFleece from '../assets/zonixa/matty-fleece-sweatshirt.jpg';
-import zRoundNeckTee from '../assets/zonixa/round-neck-tshirt.jpg';
-import zStretchTee from '../assets/zonixa/stretchable-tshirt.jpg';
+import zFiliceSweats from '../assets/zonixa/filice-sweatshirts.jpg';
+import zChestPrintSweats from '../assets/zonixa/chest-print-sweatshirts.jpg';
+import zDryfitPrintPolos from '../assets/zonixa/dryfit-print-polos.jpg';
+import zNevadaSweat from '../assets/zonixa/nevada-chest-print-sweatshirt.jpg';
+import zDryfitMattyPolos from '../assets/zonixa/dryfit-matty-polos.jpg';
+import zDoubleColourPolos from '../assets/zonixa/double-colour-polos.jpg';
+import zWinterHoodies from '../assets/zonixa/winter-hoodies.jpg';
 
 // MSP Sports — published on their IndiaMART storefront (B).
 import mPknitLower from '../assets/msp/pknit-fancy-lower.jpg';
 import mFancyBeltLower from '../assets/msp/fancy-belt-both-side-zip-lower.jpg';
-import mCottonLower from '../assets/msp/cotton-mens-lower.jpg';
 import mShorts from '../assets/msp/fancy-men-shorts.jpg';
-import mNikkar from '../assets/msp/basic-nikkar-one-side-zip.jpg';
-import mTrackPants from '../assets/msp/men-track-pants.jpg';
-import mDriFitLower from '../assets/msp/mens-dri-fit-lower.jpg';
+import mCheckedShorts from '../assets/msp/checked-shorts.jpg';
 
 // Boys' wear — IndiaMART "Boys Lower" category (B).
 import bPochiLower from '../assets/boys/pochi-both-side-zip-lower.jpg';
 import bDesignerLower from '../assets/boys/designer-boys-lower.jpg';
 import bBoysDesigner from '../assets/boys/boys-designer-lower.jpg';
 import bBoysCasual from '../assets/boys/boys-casual-lower.jpg';
-import bBoysPrinted from '../assets/boys/boys-printed-regular-fit-lower.jpg';
 
 export type Product = {
   /** The client's own listing title, from A or B. Never rewritten. */
@@ -318,22 +342,45 @@ export const zonixaProducts: readonly Product[] = [
     source: 'A',
   },
   {
-    name: 'ZONIXA Matty Fleece Sweatshirt',
-    image: zMattyFleece,
-    alt: 'Six printed round-neck sweatshirts in olive, mustard, maroon, pink, grey and black, laid out in two rows.',
-    source: 'B',
-    catalogueSheet: true,
-  },
-  {
-    name: 'ZONIXA Men Round Neck T-Shirt',
-    image: zRoundNeckTee,
-    alt: 'Mustard yellow round-neck t-shirt with a small ZONIXA chest logo, worn by a model.',
+    name: 'Round Neck Filice Sweatshirts',
+    image: zFiliceSweats,
+    alt: 'Olive-grey ZONIXA sweatshirt with its hangtag, above five folded colourways in stone, navy, pink, black and mint.',
     source: 'B',
   },
   {
-    name: "ZONIXA Men's Stretchable T-Shirts",
-    image: zStretchTee,
-    alt: 'White round-neck t-shirt with a small ZONIXA chest logo, worn by a model.',
+    name: "ZONIXA Men's Round Neck Chest Print Sweatshirt",
+    image: zChestPrintSweats,
+    alt: 'Seven printed round-neck sweatshirts in charcoal, sand, navy, olive, black and pink, arranged face up.',
+    source: 'B',
+  },
+  {
+    name: 'ZONIXA Dry Fit Printed T-Shirts',
+    image: zDryfitPrintPolos,
+    alt: 'Thirteen printed polo shirts fanned out in rust, grey, olive, navy, lilac and maroon, with ZONIXA packaging.',
+    source: 'B',
+  },
+  {
+    name: 'Sap Filice Round Neck Chest Print Sweatshirt',
+    image: zNevadaSweat,
+    alt: 'Black ZONIXA sweatshirt with a Nevada chest print and hangtag, beside a rust colourway and four folded shades.',
+    source: 'B',
+  },
+  {
+    name: 'ZONIXA Dry Fit Matty All Over Print T-Shirt',
+    image: zDryfitMattyPolos,
+    alt: 'Rust and grey all-over-print polo shirts with hangtags, beside four folded colourways and ZONIXA packaging.',
+    source: 'B',
+  },
+  {
+    name: 'Double Colour All Over Print Polo T-Shirt',
+    image: zDoubleColourPolos,
+    alt: 'White and dusty-pink all-over-print polo shirts with hangtags, above navy, sand and grey colourways.',
+    source: 'B',
+  },
+  {
+    name: 'ZONIXA Winter Hoodies',
+    image: zWinterHoodies,
+    alt: 'Seven printed hoodies in rust, black, teal, sage, blue and grey, arranged face up in two rows.',
     source: 'B',
   },
 ];
@@ -352,37 +399,16 @@ export const mspProducts: readonly Product[] = [
     source: 'B',
   },
   {
-    name: "Cotton Men's Lower",
-    image: mCottonLower,
-    alt: 'Navy cotton lower with a contrast side piping, worn by a model.',
-    source: 'B',
-  },
-  {
     name: 'Fancy Men Shorts',
     image: mShorts,
     alt: 'Navy knitted shorts with drawcord and a printed side panel, laid flat with the tag still attached.',
     source: 'B',
   },
   {
-    name: 'Basic Nikkar One Side Zip',
-    image: mNikkar,
-    alt: 'MSP Sports catalogue sheet showing knitted nikkar in navy, olive, grey and teal worn by a model.',
+    name: 'MSP Sports Checked Shorts',
+    image: mCheckedShorts,
+    alt: 'Green checked shorts laid flat beside five folded printed colourways and two MSP Sports branded cartons.',
     source: 'B',
-    catalogueSheet: true,
-  },
-  {
-    name: 'Men Track Pants',
-    image: mTrackPants,
-    alt: 'MSP Sports catalogue sheet showing track pants in navy, grey and black worn by a model.',
-    source: 'B',
-    catalogueSheet: true,
-  },
-  {
-    name: 'Mens Dri-Fit Lower',
-    image: mDriFitLower,
-    alt: 'MSP Sports catalogue sheet showing dry-fit lowers in blue, navy, grey and black worn by a model.',
-    source: 'B',
-    catalogueSheet: true,
   },
 ];
 
@@ -409,12 +435,6 @@ export const boysProducts: readonly Product[] = [
     name: 'Boys Casual Lower',
     image: bBoysCasual,
     alt: 'Dark grey track pant with yellow and white side stripes, laid flat.',
-    source: 'B',
-  },
-  {
-    name: 'Boys Printed Regular Fit Lower',
-    image: bBoysPrinted,
-    alt: 'Grey all-over printed lower with a drawcord waist, worn by a model.',
     source: 'B',
   },
 ];

@@ -1,11 +1,12 @@
 {
   "version": "0.0.1",
+  "autoPort": true,
   "configurations": [
     {
       "name": "panwar-preview",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "preview", "--", "--port", "4321"],
-      "port": 4321
+      "runtimeArgs": ["run", "preview"],
+      "port": 4330
     }
   ]
 }

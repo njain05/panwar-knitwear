@@ -4,6 +4,9 @@ import { company, brands, fabrics } from '../data/site';
 /*
  * Verifiable figures only. Nothing here is capacity, MOQ or lead time — those are
  * unpublished and are listed as TODO in site.ts rather than guessed at.
+ *
+ * Sits on the violet plate directly under the hero so the two read as one block:
+ * the claim, then the numbers backing it.
  */
 const stats = [
   { figure: String(company.established), label: 'Manufacturing since' },
@@ -14,15 +17,13 @@ const stats = [
 ];
 ---
 
-<div class="border-b border-line bg-surface">
-  <dl
-    class="mx-auto grid w-full max-w-6xl grid-cols-2 gap-px overflow-hidden border-x border-line bg-line px-0 sm:grid-cols-3 lg:grid-cols-5"
-  >
+<div class="bg-brand-deepest">
+  <dl class="mx-auto grid w-full max-w-6xl grid-cols-2 gap-px bg-white/10 sm:grid-cols-3 lg:grid-cols-5">
     {
       stats.map((s) => (
-        <div class="flex flex-col justify-center bg-surface px-5 py-6 sm:px-6 sm:py-7">
-          <dt class="eyebrow order-2 mt-2">{s.label}</dt>
-          <dd class="order-1 font-mono text-2xl font-medium leading-none tracking-tight text-ink sm:text-3xl">
+        <div class="flex flex-col justify-center bg-brand-deepest px-5 py-6 sm:px-6 sm:py-7">
+          <dt class="eyebrow order-2 mt-2 text-white/55">{s.label}</dt>
+          <dd class="order-1 font-mono text-2xl font-medium leading-none tracking-tight text-white sm:text-3xl">
             {s.figure}
           </dd>
         </div>

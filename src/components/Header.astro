@@ -1,35 +1,51 @@
 ---
-import { company, primaryPhone, telHref } from '../data/site';
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/panwar-knitwear-logo.png';
+import { company, brands, primaryPhone, telHref } from '../data/site';
 
-/* Anchor-only nav. Every target exists on this page — rule 9. */
+/*
+ * The logo artwork is a violet plate with its own gradient baked in, so the header
+ * is built as the same violet and the mark sits inside it rather than floating on
+ * paper as a stray purple rectangle. The header field is deliberately flat and
+ * untextured: the logo already carries a gradient, and a second one behind it —
+ * or a stitch mesh at this height — competes with it.
+ */
 const nav = [
-  { label: 'Top wear', href: '#zonixa' },
-  { label: 'Bottom wear', href: '#msp-sports' },
-  { label: "Boys' wear", href: '#boys-wear' },
-  { label: 'Fabrics', href: '#fabrics' },
-  { label: 'Verify us', href: '#trust' },
+  { label: `${brands.zonixa.name} — top wear`, short: 'Top wear', href: '#zonixa' },
+  { label: `${brands.msp.name} — bottom wear`, short: 'Bottom wear', href: '#msp-sports' },
+  { label: "Boys' wear", short: "Boys' wear", href: '#boys-wear' },
+  { label: 'Fabrics', short: 'Fabrics', href: '#fabrics' },
+  { label: 'Verify us', short: 'Verify us', href: '#trust' },
 ];
 ---
 
-<header class="sticky top-0 z-30 border-b border-line bg-paper/90 backdrop-blur-sm">
-  <div class="mx-auto flex w-full max-w-6xl items-center gap-4 px-5 py-3 sm:px-8">
-    <a href="#main" class="flex min-h-11 shrink-0 flex-col justify-center leading-none">
-      <span class="text-base font-semibold tracking-tight sm:text-lg">{company.name}</span>
-      <span class="mt-0.5 font-mono text-[0.625rem] uppercase tracking-[0.14em] text-ink-muted">
-        {company.city}, {company.state}
-      </span>
+<header class="brand-plate sticky top-0 z-30 border-b border-white/10">
+  <div class="mx-auto flex w-full max-w-6xl items-center gap-4 px-5 py-2.5 sm:px-8">
+    <a
+      href="#main"
+      class="flex min-h-11 shrink-0 items-center"
+      aria-label={`${company.name} — back to top`}
+    >
+      <Image
+        src={logo}
+        alt={`${company.name}, home of ${brands.zonixa.name} and ${brands.msp.name}`}
+        widths={[220, 440]}
+        sizes="(min-width: 640px) 220px, 172px"
+        loading="eager"
+        class="h-9 w-auto sm:h-11"
+      />
     </a>
 
     <nav aria-label="Sections" class="ml-auto hidden lg:block">
-      <ul class="flex items-center gap-1">
+      <ul class="flex items-center gap-0.5">
         {
           nav.map((item) => (
             <li>
               <a
                 href={item.href}
-                class="tap rounded-sm px-3 text-sm font-medium text-ink-muted transition-colors hover:bg-surface-2 hover:text-ink"
+                class="btn tap rounded-md px-3 text-sm text-white/80 hover:bg-white/10 hover:text-white"
               >
-                {item.label}
+                {item.short}
               </a>
             </li>
           ))
@@ -39,11 +55,43 @@ const nav = [
 
     <a
       href={telHref(primaryPhone.e164)}
-      class="tap ml-auto shrink-0 gap-2 rounded-sm border border-line-strong px-3 font-mono text-xs text-ink transition-colors hover:bg-surface-2 lg:ml-0"
+      class="btn tap ml-auto shrink-0 gap-2 rounded-md bg-white/95 px-3.5 font-mono text-xs font-medium text-brand-deepest hover:bg-white sm:px-4 sm:text-sm lg:ml-4"
     >
-      <span aria-hidden="true">☎</span>
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="size-4"
+      >
+        <path
+          d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92Z"
+        ></path>
+      </svg>
       <span class="hidden sm:inline">{primaryPhone.display}</span>
       <span class="sm:hidden">Call</span>
     </a>
   </div>
+
+  {/* Narrow screens get the same routes as a scrollable rail — reaching a brand is
+      never more than one tap, per the brief. */}
+  <nav aria-label="Ranges" class="border-t border-white/10 lg:hidden">
+    <ul class="flex gap-1.5 overflow-x-auto px-4 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {
+        nav.map((item) => (
+          <li class="shrink-0">
+            <a
+              href={item.href}
+              class="btn tap whitespace-nowrap rounded-full border border-white/25 px-3.5 text-xs font-medium text-white/85 hover:bg-white/15 hover:text-white"
+            >
+              {item.short}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 </header>

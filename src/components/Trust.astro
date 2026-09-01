@@ -24,9 +24,9 @@ const credentials = [
   title="Everything here can be verified somewhere else."
   lede="A first-time buyer sending a bulk order to an unfamiliar supplier checks the listings before the catalogue. Here they are, with what each one confirms."
 >
-  <div class="mt-10 grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-14">
+  <div class="rise mt-10 grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-14">
     <div>
-      <h3 class="eyebrow">On record</h3>
+      <h3 class="eyebrow text-brand-bright">On record</h3>
       <dl class="mt-4 divide-y divide-line border-y border-line">
         {
           credentials.map((c) => (
@@ -38,15 +38,15 @@ const credentials = [
         }
       </dl>
 
-      <div class="mt-8 rounded-sm border border-line bg-surface p-5">
-        <p class="eyebrow">Buyer rating</p>
+      <div class="knit-plate mt-8 rounded-xl p-5 text-white">
+        <p class="eyebrow text-white/60">Buyer rating</p>
         <p class="mt-3 flex items-baseline gap-2">
-          <span class="font-mono text-4xl font-medium leading-none tracking-tight text-ink">
+          <span class="font-mono text-4xl font-medium leading-none tracking-tight text-white">
             {rating.score}
           </span>
-          <span class="font-mono text-sm text-ink-muted">/ {rating.outOf}</span>
+          <span class="font-mono text-sm text-white/70">/ {rating.outOf}</span>
         </p>
-        <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+        <p class="mt-3 text-sm leading-relaxed text-white/75">
           From {rating.reviews} reviews on {rating.source}. A small sample, published in full rather
           than rounded up.
         </p>
@@ -54,7 +54,7 @@ const credentials = [
     </div>
 
     <div>
-      <h3 class="eyebrow">Listed on</h3>
+      <h3 class="eyebrow text-brand-bright">Listed on</h3>
       <ul class="mt-4 flex flex-col gap-3">
         {
           listings.map((l) => (
@@ -62,7 +62,7 @@ const credentials = [
               <a
                 href={l.href}
                 rel="noopener"
-                class="group flex items-start gap-4 rounded-sm border border-line bg-surface p-4 transition-colors hover:border-line-strong hover:bg-surface-2"
+                class="card-hover group flex items-start gap-4 rounded-xl border border-line bg-paper p-4 hover:border-brand-bright"
               >
                 <span class="flex-1">
                   <span class="flex items-center gap-2 text-sm font-semibold text-ink">
@@ -79,7 +79,7 @@ const credentials = [
         }
       </ul>
 
-      <h3 class="eyebrow mt-8">Live listing counts</h3>
+      <h3 class="eyebrow mt-8 text-brand-bright">Live listing counts</h3>
       <p class="mt-3 text-sm leading-relaxed text-ink-muted">
         Products published on their IndiaMART storefront, counted {listingCountsReadOn}. These are
         listings, not capacity.
