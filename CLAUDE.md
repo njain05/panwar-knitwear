@@ -1,7 +1,8 @@
 # Panwar Knitwear
 
 **Status:** homepage built and verified (1 Sep 2026). Astro static + Tailwind v4,
-nine components, all nine sections live, `npm run build` clean. Not yet deployed.
+nine components, all nine sections live, `npm run build` clean. Deployed on Vercel
+(auto-deploys from main; confirmed live 5 Sep 2026).
 *(The one line here that doesn't persist — update it at the end of each session.)*
 
 **Business:** knitwear manufacturer in Ludhiana, est. 2016, 26–50 staff, sole
